@@ -1,3 +1,10 @@
+import { redis } from "../../../lib/redis";
+
 export async function GET() {
-  return Response.json({ ok: true });
+  try {
+    await redis.ping();
+    return Response.json({ ok: true });
+  } catch {
+    return Response.json({ ok: false }, { status: 500 });
+  }
 }
