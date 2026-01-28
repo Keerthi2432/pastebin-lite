@@ -3,10 +3,9 @@ export default async function PastePage(
 ) {
   const { id } = await props.params;
 
-  const res = await fetch(
-    `${process.env.BASE_URL || "http://localhost:3000"}/api/pastes/${id}`,
-    { cache: "no-store" }
-  );
+  const res = await fetch(`/api/pastes/${id}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     return <h1>Paste not found or expired</h1>;
