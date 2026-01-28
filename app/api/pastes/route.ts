@@ -19,16 +19,26 @@ export async function POST(req: Request) {
 
   const id = nanoid();
 
-  const paste = {
-    content,
-    remaining_views: max_views ?? null,
-    expires_at: ttl_seconds ? Date.now() + ttl_seconds * 1000 : null,
-  };
+  // const paste = {
+  //   content,
+  //   remaining_views: max_views ?? null,
+  //   expires_at: ttl_seconds ? Date.now() + ttl_seconds * 1000 : null,
+  // };
 
-  await redis.set(`paste:${id}`, paste);
+  // await redis.set(`paste:${id}`, paste);
 
-  return Response.json({
-    id,
-    url: `http://localhost:3000/p/${id}`,
-  });
+  // return Response.json({
+  //   id,
+  //   url: `http://localhost:3000/p/${id}`,
+  // });
+  const base =
+  process.env.BASE_URL ||
+  req.headers.get("origin") ||
+  "http://localhost:3000";
+
+return Response.json({
+  id,
+  url: `${base}/p/${id}`,
+});
+
 }
