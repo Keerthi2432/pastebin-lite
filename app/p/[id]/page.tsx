@@ -3,7 +3,12 @@ export default async function PastePage(
 ) {
   const { id } = await props.params;
 
-  const res = await fetch(`/api/pastes/${id}`, {
+  const base =
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
+
+  const res = await fetch(`${base}/api/pastes/${id}`, {
     cache: "no-store",
   });
 
